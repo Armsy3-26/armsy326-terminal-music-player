@@ -1,7 +1,7 @@
 ## armsy326-terminal-music-player
-A python terminal music player. #Amateurish.\
+A python terminal music player. _Amateurish._\
 
-##How to run it.\
+**How to run it.**\
 **1.**\
 ##Instructions on how to get this running on gnu/linux distros.\
 1.clone the repository and unzip it in home directory.\
@@ -30,4 +30,7 @@ navigate to alixe directoy.\
 activate the virtual environment.\
 run python3 main.py\
 \
-Have fun ):
+__After a successful execution:__\
+1.run ***help*** for more guidance.
+
+*Have fun ):*
