@@ -24,7 +24,7 @@ open cmd.\
 navigate to alixe folder.\
 run: python3 main.py\
 
-"OPeration 2"
+"Operation 2"
 open cmd.\
 navigate to alixe directoy.\
 activate the virtual environment.\
