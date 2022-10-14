@@ -1,8 +1,8 @@
-# armsy326-terminal-music-player
+## armsy326-terminal-music-player
 A python terminal music player. #Amateurish.\
 
 ##How to run it.\
-######1.\
+**1.**\
 ##Instructions on how to get this running on gnu/linux distros.\
 1.clone the repository and unzip it in home directory.\
 2.open terminal.\
@@ -14,11 +14,11 @@ it will be something like "/home/*yoursystemname*/ a simple *whoami* in the shel
 5.save the .bashrc file and exit.\
 6.run *armsy326* in the terminal.\ 
 
-######2.\
+**2.**\
 -The unziped repository has everything to run without any configurations.(A VIRTUALENV)\
 -Just navigate into the unzipped directory and and run *main.py*\
 
-######3.\
+**3.**\
 On Windows(possible workout):\
 open cmd.\
 navigate to alixe folder.\
