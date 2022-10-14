@@ -1,5 +1,5 @@
 ## armsy326-terminal-music-player
-A python terminal music player.Amateurish to it gets shit done.
+A python terminal music player.Amateurish though it gets shit done.
 
 **How to run it.**\
 **1.**\
