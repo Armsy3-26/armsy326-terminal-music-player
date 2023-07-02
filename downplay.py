@@ -34,7 +34,8 @@ class DownloadInquest(object):
             try:
                 print("Downloading file in a few...\n")
                 func(self)
-            except Exception:
+            except Exception as e:
+                print(e)
                 sys.stderr.write('[Err]No internet connection\n')
         return wrapper
                 

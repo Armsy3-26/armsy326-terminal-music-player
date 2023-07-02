@@ -51,7 +51,7 @@ def scan_media():
     
     other_media  = next(os.walk(media_path))[1]
     
-    sys.stdout.write("{: ^50s}".format(f"Scanned Folders({len(other_media) + 1})\n"))
+    sys.stdout.write("{: ^50s}".format(f"Scanned Folders({len(other_media) + 1})\n\n"))
 
     #List of files in the parent directory
     #print("Music(parent dir)", len(music), "files")
@@ -151,33 +151,40 @@ def add_path(path):
             sys.stdout.write("[Skipped] playlist not updated.\n")
                 
     except FileNotFoundError:
-        sys.stdout.write("[Err]The path ins't well configured.Exiting.\n")
+        sys.stdout.write("[Err]The path ins't well configured.Exiting...\n")
 
         
         
 def all_songs():
     matching_media.clear()
-    with open(".music.txt", mode='r+', encoding="utf-8") as music:
-        
-        files = music.read()        
-        pattern = re.compile(r'.+', re.IGNORECASE)
-        
-        matches  =  re.findall(pattern, files)
-        
-        cnt = 0
-        
-        for match in matches:
-            matching_media.append(match.lstrip(" "))
-            pattern = f'{media_path}'
-            matches = re.sub(pattern, "", match)
-            new_pattern = r'.+/'
-            perfect_match = re.sub(new_pattern, "", matches)
-            no_ext  = r'.(?:mp3|mp4|.webm|m4a)'
-            res_media = re.sub(no_ext, "", perfect_match)
-            time.sleep(0.01)
-            sys.stdout.write(f"{cnt} {res_media}\n")
-        
-            cnt += 1
+    try:
+        with open(".music.txt", mode='r+', encoding="utf-8") as music:
+            
+            files = music.read()        
+            pattern = re.compile(r'.+', re.IGNORECASE)
+            
+            matches  =  re.findall(pattern, files)
+            
+            cnt = 0
+            
+            for match in matches:
+                matching_media.append(match.lstrip(" "))
+                pattern = f'{media_path}'
+                matches = re.sub(pattern, "", match)
+                new_pattern = r'.+/'
+                perfect_match = re.sub(new_pattern, "", matches)
+                no_ext  = r'.(?:mp3|mp4|.webm|m4a)'
+                res_media = re.sub(no_ext, "", perfect_match)
+                time.sleep(0.01)
+                sys.stdout.write(f"{cnt} {res_media}\n")
+            
+                cnt += 1
+    except Exception as e:
+        if e.__class__.__name__ == 'FileNotFoundError':
+            sys.stdout.write("[Err]No music file generated.Use 'refresh' command to generate one.\n")
+    """else:
+        print(e)
+        sys.stdout.write("[Err]Could not find generated music file.\n")"""
             
 def total_media():
     with open(".music.txt", mode='r+', encoding="utf-8") as music:
@@ -395,7 +402,7 @@ def play_all():
                 playsound.playsound(path, block=True)
                 
             except Exception:
-                sys.stdout.write("WARNING: Skiped files not found.Run 'refresh' to update your playlist.")
+                sys.stdout.write("WARNING: Skiped files not found.Run 'refresh' to update your playlist.\n")
             
     else:
         sys.stdout.write("No media files present!, if you meant to play your entire playslist, first run 'list all songs'.\n")
