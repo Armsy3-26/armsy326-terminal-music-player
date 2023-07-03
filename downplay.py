@@ -5,19 +5,19 @@ Created on Fri Apr 22 17:16:07 2022
 
 @author: armsy326
 """
+from __future__ import unicode_literals
 import os
 import sys
 import concurrent.futures
 from tqdm import tqdm
-import pytube
-from pytube.cli import on_progress
+import youtube_dl
 
 class DownloadInquest(object):
     
     def __init__(self, 
                  link,audio=None,
                  video=None,
-                 path = f"/home/{os.getlogin()}/Downloads"
+                 path = f"/home/{os.getlogin()}/Music"
                  )->str:
         
         self.link = link
@@ -45,17 +45,17 @@ class DownloadInquest(object):
     @loader
     def youtubevideo(self):
         
-        link = pytube.YouTube(self.link, on_progress_callback=on_progress)
-        #use progressivce to try and get itag 22
-        res  = link.streams.filter(progressive=True)
-        
-        video = link.streams.get_by_itag(22)
         try:
             os.path.exists(self.path)
-            video.download(self.path)
+            ydl_opts = {
+                'outtmpl': os.path.join(self.path, '%(title)s.%(ext)s')
+            }
+            with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+                ydl.download([self.link])
             sys.stdout.write(f"File saved at: {self.path}\n")
             
         except Exception:
+            
             sys.stderr.write("[Err]Link error.Pass a legit link after the download statement.Type 'help download' for more information. \n")
 
     """
@@ -63,16 +63,23 @@ class DownloadInquest(object):
     """
     @loader
     def youtubeaudio(self):
-        link = pytube.YouTube(self.link, on_progress_callback=on_progress)
-        #use progressivce to try and get itag 22
-        res  = link.streams.filter(only_audio=True)
         
-        audio = link.streams.get_by_itag(251)
         try:
             os.path.exists(self.path)
-            audio.download(self.path)
+            ydl_opts  = {
+                'format': 'bestaudio/best',
+                'postprocessors': [{
+        'key': 'FFmpegExtractAudio',
+        'preferredcodec': 'mp3',
+        'preferredquality': '192',
+    }],
+    'outtmpl': os.path.join(self.path, '%(title)s.%(ext)s')
+            }
+            with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+                ydl.download([self.link])
             sys.stdout.write(f"File at: {self.path}\n\n")
-        except Exception:
+        except Exception as e:
+            print(e)
             sys.stderr.write("[Err]Link error.Pass a legit link after the download statement.Type 'help download' for more information. \n")
         
     @loader
