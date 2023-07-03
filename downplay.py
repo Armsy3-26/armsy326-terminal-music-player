@@ -9,7 +9,6 @@ from __future__ import unicode_literals
 import os
 import sys
 import concurrent.futures
-from tqdm import tqdm
 import youtube_dl
 
 class DownloadInquest(object):
@@ -35,7 +34,6 @@ class DownloadInquest(object):
                 print("Downloading file in a few...\n")
                 func(self)
             except Exception as e:
-                print(e)
                 sys.stderr.write('[Err]No internet connection\n')
         return wrapper
                 
@@ -79,7 +77,6 @@ class DownloadInquest(object):
                 ydl.download([self.link])
             sys.stdout.write(f"File at: {self.path}\n\n")
         except Exception as e:
-            print(e)
             sys.stderr.write("[Err]Link error.Pass a legit link after the download statement.Type 'help download' for more information. \n")
         
     @loader
